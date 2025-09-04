@@ -1,12 +1,268 @@
-<!DOCTYPE html>
-<html lang="en">
+ <!doctype html>
+<html lang="fi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>projekti</title>
-    <h1>Ensimmäinen rivi</h1>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Anas – Portfolio</title>
+  <meta name="description" content="Anas Muhumed – Web-kehittäjän portfolio" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b0c10;
+      --card: #111317;
+      --text: #e8eaed;
+      --muted: #a1a7b3;
+      --brand: #6c5ce7;
+      --accent: #22c55e;
+      --radius: 16px;
+      --space: clamp(14px, 2vw, 20px);
+      --maxw: 1100px;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      background: radial-gradient(60rem 60rem at 120% -10%, #1a134a 0%, transparent 60%),
+                  radial-gradient(40rem 40rem at -10% -20%, #0c233a 0%, transparent 60%),
+                  var(--bg);
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--space); }
+
+    /* Header */
+    header {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: blur(6px);
+      background: rgba(11,12,16,0.6);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .brand { font-weight: 800; letter-spacing: .3px; }
+    .brand span { color: var(--brand); }
+    .menu { display: flex; gap: 18px; align-items: center; }
+    .menu a { color: var(--muted); font-weight: 600; }
+    .menu a:hover, .menu a:focus { color: var(--text); }
+    .btn { display: inline-block; padding: 10px 14px; border-radius: 10px; background: var(--brand); color: white; font-weight: 600; border: none; }
+    .btn:hover { filter: brightness(1.1); }
+    .mobile-toggle { display: none; background: none; border: 1px solid rgba(255,255,255,0.2); color: var(--text); padding: 8px 10px; border-radius: 10px; }
+
+    /* Hero */
+    .hero { padding: 56px 0 32px; }
+    .hero-grid { display: grid; gap: 24px; grid-template-columns: 1.1fr .9fr; align-items: center; }
+    .hero h1 { font-size: clamp(28px, 4vw, 44px); line-height: 1.1; margin: 0 0 12px; }
+    .hero p { color: var(--muted); margin: 0 0 18px; }
+    .tags { display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0 22px; }
+    .tag { padding: 6px 10px; border-radius: 999px; background: rgba(255,255,255,0.06); color: #d8dcee; font-size: 14px; border: 1px solid rgba(255,255,255,0.08); }
+    .avatar {
+      width: 160px; height: 160px; border-radius: 50%;
+      background: linear-gradient(135deg, #2a2f3a, #1a1f28);
+      display: grid; place-items: center; box-shadow: 0 10px 30px rgba(0,0,0,.4);
+      border: 2px solid rgba(255,255,255,0.08);
+    }
+
+    /* Sections */
+    section { padding: 48px 0; }
+    h2 { font-size: clamp(22px, 3vw, 30px); margin: 0 0 18px; }
+    .grid { display: grid; gap: 18px; }
+
+    /* Projects */
+    .projects { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+    .card {
+      background: var(--card); border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius); padding: 16px; display: grid; gap: 10px;
+      transition: transform .15s ease, border-color .15s ease;
+    }
+    .card:hover { transform: translateY(-3px); border-color: rgba(255,255,255,0.12); }
+    .card img { width: 100%; height: 150px; object-fit: cover; border-radius: 12px; background:#0f1220; }
+    .card h3 { margin: 4px 0; font-size: 18px; }
+    .card p { color: var(--muted); font-size: 14px; margin: 0; }
+    .card .links { display: flex; gap: 10px; margin-top: 6px; }
+    .ghost { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); }
+
+    /* Skills */
+    .skills { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+    .pill { padding: 10px 12px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; text-align:center; font-weight:600; }
+
+    /* Contact */
+    form { display: grid; gap: 12px; max-width: 520px; }
+    input, textarea { width: 100%; padding: 12px 14px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.12); background: #0e1116; color: var(--text); }
+    textarea { min-height: 120px; resize: vertical; }
+
+    /* Footer */
+    footer { padding: 36px 0 60px; color: var(--muted); text-align: center; }
+
+    /* Responsive */
+    @media (max-width: 860px) {
+      .menu { display: none; position: absolute; left: 0; right: 0; top: 64px; background: rgba(11,12,16,0.95); padding: 12px var(--space); border-bottom: 1px solid rgba(255,255,255,0.06); }
+      .menu.open { display: grid; gap: 12px; }
+      .mobile-toggle { display: inline-block; }
+      .hero { padding-top: 32px; }
+      .hero-grid { grid-template-columns: 1fr; }
+      .avatar { width: 120px; height: 120px; }
+    }
+  </style>
 </head>
 <body>
-  
+  <header>
+    <div class="wrap nav" role="navigation">
+      <div class="brand" aria-label="Etusivu">
+        <a href="#hero">Anas<span>.</span></a>
+      </div>
+      <nav class="menu" id="menu">
+        <a href="#projects">Projektit</a>
+        <a href="#skills">Taidot</a>
+        <a href="#contact">Yhteys</a>
+        <a class="btn ghost" href="https://github.com/" target="_blank" rel="noreferrer">GitHub</a>
+      </nav>
+      <button class="mobile-toggle" id="toggle" aria-expanded="false" aria-controls="menu">Valikko</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" id="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <h1>Hei, olen Anas – kehittyvä frontend-devaaja</h1>
+          <p>Rakennan selkeitä ja responsiivisia verkkosivuja. Osaan HTML:n, CSS:n ja aloittelen JavaScriptiä.
+             Tavoite: oppia React ja tehdä lisää asiakasprojekteja.</p>
+          <div class="tags" aria-label="Teknologiat">
+            <span class="tag">HTML</span>
+            <span class="tag">CSS / Flexbox / Grid</span>
+            <span class="tag">JavaScript (perusteet)</span>
+            <span class="tag">WordPress</span>
+            <span class="tag">Git & GitHub</span>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap">
+            <a class="btn" href="#projects">Katso projekteja</a>
+            <a class="btn ghost" href="#contact">Ota yhteyttä</a>
+          </div>
+        </div>
+        <div style="display:grid; place-items:center">
+          <div class="avatar" aria-hidden="true">
+            <!-- Pieni SVG-avatar -->
+            <svg width="90" height="90" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <circle cx="12" cy="8" r="4" stroke="#9aa0a6" stroke-width="1.5"/>
+              <path d="M4 20c0-4 4-6 8-6s8 2 8 6" stroke="#9aa0a6" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+      <div class="wrap">
+        <h2>Projektit</h2>
+        <div class="grid projects">
+          <!-- PROJEKTI 1 -->
+          <article class="card">
+            <img src="https://images.unsplash.com/photo-1526378722484-bd91ca387e72?q=80&w=1200&auto=format&fit=crop" alt="Korttikomponentin esikatselukuva" />
+            <h3>Responsiivinen kortti (Frontend Mentor)</h3>
+            <p>Pieni komponentti, jossa harjoittelin Flexboxia ja typografiaa. Mobile-first.</p>
+            <div class="links">
+              <a class="btn" href="#" target="_blank" rel="noreferrer">Live</a>
+              <a class="btn ghost" href="#" target="_blank" rel="noreferrer">Repo</a>
+            </div>
+          </article>
+
+          <!-- PROJEKTI 2 -->
+          <article class="card">
+            <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1200&auto=format&fit=crop" alt="To-do-sovelluksen esikatselukuva" />
+            <h3>To‑Do App (Vanilla JS)</h3>
+            <p>Lisää/poista tehtäviä, säilytys localStoragessa. Ensimmäinen DOM-harjoitus.</p>
+            <div class="links">
+              <a class="btn" href="#" target="_blank" rel="noreferrer">Live</a>
+              <a class="btn ghost" href="#" target="_blank" rel="noreferrer">Repo</a>
+            </div>
+          </article>
+
+          <!-- PROJEKTI 3 -->
+          <article class="card">
+            <img src="https://images.unsplash.com/photo-1516251193007-45ef944ab0c6?q=80&w=1200&auto=format&fit=crop" alt="Portfolio-sivun esikatselukuva" />
+            <h3>Portfolio (tämä sivu)</h3>
+            <p>Yksitiedostoinen portfolio. Julkaistu GitHub Pagesissa.</p>
+            <div class="links">
+              <a class="btn" href="#hero">Ylös</a>
+              <a class="btn ghost" href="#" target="_blank" rel="noreferrer">Repo</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <div class="wrap">
+        <h2>Taidot</h2>
+        <div class="grid skills">
+          <div class="pill">Semanttinen HTML</div>
+          <div class="pill">CSS: Flexbox & Grid</div>
+          <div class="pill">Responsiivisuus</div>
+          <div class="pill">Perus JavaScript</div>
+          <div class="pill">WordPress</div>
+          <div class="pill">Git / GitHub</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" aria-labelledby="contact-heading">
+      <div class="wrap">
+        <h2 id="contact-heading">Ota yhteyttä</h2>
+        <p style="color:var(--muted); margin-top:-6px;">Täytä lomake tai mailaa suoraan: <a href="mailto:anas@example.com">anas@example.com</a></p>
+        <form id="contactForm">
+          <label>
+            Nimi
+            <input required name="name" placeholder="Etunimi Sukunimi" />
+          </label>
+          <label>
+            Sähköposti
+            <input required type="email" name="email" placeholder="sinä@esimerkki.fi" />
+          </label>
+          <label>
+            Viesti
+            <textarea required name="message" placeholder="Moi!…"></textarea>
+          </label>
+          <button class="btn" type="submit">Lähetä (demo)</button>
+          <small style="color:var(--muted)">Demo: viesti näytetään vain ruudulla, ei lähetä oikeasti.</small>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      © <span id="year"></span> Anas Muhumed •
+      <a href="#" rel="noreferrer">GitHub</a> •
+      <a href="#" rel="noreferrer">LinkedIn</a>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile-valikko
+    const toggle = document.getElementById('toggle');
+    const menu = document.getElementById('menu');
+    toggle?.addEventListener('click', () => {
+      const open = menu.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+
+    // Vuosi footeriin
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Yhteyslomake (demo)
+    document.getElementById('contactForm')?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(e.target));
+      alert(`Kiitos viestistä, ${data.name}!\n\nSähköposti: ${data.email}\nViesti: ${data.message}`);
+      e.target.reset();
+    });
+  </script>
 </body>
 </html>
